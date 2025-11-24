@@ -9,6 +9,7 @@ on:
 jobs:
   test-and-build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -35,9 +36,15 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:latest,${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:${{ github.sha }}
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:${{ github.sha }}
         env:
           DOCKER_BUILDKIT: 1
 
-      - name: Debug - show pushed tags
-        run: echo "pushed: ${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:latest and ${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:${{ github.sha }}"
+      - name: Debug – show pushed tags
+        run: |
+          echo "pushed:"
+          echo "${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:latest"
+          echo "${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:${{ github.sha }}"
+
