@@ -25,6 +25,9 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
       - name: Build Docker image
         run: docker build -t cicd-project:${{ github.sha }} .
 
@@ -39,5 +42,4 @@ jobs:
           docker tag cicd-project:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:${{ github.sha }}
           docker tag cicd-project:${{ github.sha }} ${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:latest
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:${{ github.sha }}
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:_
-
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:latest
