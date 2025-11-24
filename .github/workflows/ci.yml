@@ -33,6 +33,5 @@ jobs:
         env:
           DOCKER_BUILDKIT: 1
 
-      # optional: list pushed tags (for debug)
       - name: Show pushed tags (debug)
         run: echo "pushed: ${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:latest and ${{ secrets.DOCKERHUB_USERNAME }}/cicd-project:${{ github.sha }}"
